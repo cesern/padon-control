@@ -1,0 +1,97 @@
+extends ../layouts/dadmin_in.pug
+
+block title
+    title Lista del padrón
+
+block headstyles
+    // Bootstrap core CSS
+    link(href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Page level plugin CSS
+    link(href="/public/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href="/public/css/buttons.css" rel="stylesheet")
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Padrón
+                li.breadcrumb-item.active Lista
+            // DataTables Example
+            .card.mb-3
+                .card-header
+                    i.fas.fa-table
+                    | Lista del padrón
+                .card-body
+                    .table-responsive
+                        table#dataTable.table.table-bordered(width="100%" cellspacing="0")
+                            thead
+                                tr
+                                    th Número de empleado
+                                    th Nombre
+                                    th Status
+                                    th Antigüedad
+                                    th Acción
+                            tbody
+                                each maestro in padron
+                                    tr
+                                        td #{maestro.employee_number}
+                                        td #{maestro.name}
+                                        if maestro.status
+                                            td Activo
+                                        else
+                                            td Inactivo
+                                        td #{maestro.antiqueness.getFullYear()}/#{maestro.antiqueness.getMonth()+1}
+                                        td
+                                            a(href="/p/edit/"+maestro.employee_number class="btn btn-primary") Editar
+                                            
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src="/public/vendor/jquery/jquery.min.js")
+    script(src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    // Core plugin JavaScript
+    script(src="/public/vendor/jquery-easing/jquery.easing.min.js")
+    // Page level plugin JavaScript
+    script(src="/public/vendor/datatables/jquery.dataTables.js")
+    script(src="/public/vendor/datatables/dataTables.bootstrap4.js")
+    // Custom scripts for all pages
+    script(src="/public/js/sb-admin.min.js")
+    // for buttons
+    script(src='/public/DataTables/JSZip/jszip.min.js')
+    script(src='/public/DataTables/Responsive/js/dataTables.responsive.js')
+    script(src='/public/DataTables/Buttons/js/dataTables.buttons.min.js')
+    script(src='/public/DataTables/Buttons/js/buttons.html5.min.js')
+    script(src='/public/DataTables/pdfmake/pdfmake.min.js')
+    script(src='/public/DataTables/pdfmake/vfs_fonts.js')
+    script.
+        $('#dataTable').DataTable({
+            responsive: true,
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [ 10, 25, 50 ],
+                [ 'Mostrar 10', 'Mostrar 25', 'Mostrar 50' ]
+            ],
+            buttons: [
+                'pageLength',
+                {
+                    extend: 'excelHtml5',
+                    title: 'Padron',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Padron',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    }
+                }
+            ]
+        });
+    

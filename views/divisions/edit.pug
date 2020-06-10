@@ -1,0 +1,78 @@
+extends ../layouts/admin_in.pug
+
+block title
+    title Editar división
+
+block headstyles
+    // Bootstrap core CSS
+    link(href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href="/public/css/buttons.css" rel="stylesheet")
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item División
+                li.breadcrumb-item.active Editar
+            
+            .card.card-register.mx-auto.mt-5
+                .card-header Editar división
+                .card-body
+                    form(method="post")
+
+                        if messages.type === 1
+                            .alert.alert-danger.alert-dismissible.fade.show(role="alert") 
+                                | #{messages.message} 
+                                button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                    span(aria-hidden="true") ×
+                        
+                            .form-group
+                                label(for="forSelectDivision") Unidad Académica
+                                select#forSelectAU.form-control(name="au_name")
+                                    each academic_unit in academic_units
+                                        if academic_unit.name !== messages.au_name
+                                            option #{academic_unit.name}
+                                        else
+                                            option(selected) #{academic_unit.name}
+
+                            .form-group
+                                .form-label-group
+                                    input#forName.form-control(type="text" name="name" value=messages.name autofocus="autofocus")
+                                    label(for="forName") Nombre de la división
+                            
+                            input(name="id" type="hidden" value=messages._id)
+
+                        else
+
+                            .form-group
+                                label(for="forSelectDivision") Unidad Académica
+                                select#forSelectAU.form-control(name="au_name")
+                                    each academic_unit in academic_units
+                                        if academic_unit.name !== division.academic_unit.name
+                                            option #{academic_unit.name}
+                                        else
+                                            option(selected) #{academic_unit.name}
+
+                            .form-group
+                                .form-label-group
+                                    input#forName.form-control(type="text" name="name" value=division.name autofocus="autofocus")
+                                    label(for="forName") Nombre de la división
+                            
+                            input(name="id" type="hidden" value=division._id)
+ 
+                        button.btn.btn-primary.btn-block(type="submit") Guardar
+
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src="/public/vendor/jquery/jquery.min.js")
+    script(src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    // Core plugin JavaScript
+    script(src="/public/vendor/jquery-easing/jquery.easing.min.js")
+    // Custom scripts for all pages
+    script(src="/public/js/sb-admin.min.js")

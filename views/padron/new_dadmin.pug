@@ -1,0 +1,107 @@
+extends ../layouts/dadmin_in.pug
+
+block title
+    title Crear registro en padrón
+
+block headstyles
+    // Bootstrap core CSS
+    link(href='/public/vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href='/public/css/buttons.css', rel='stylesheet')
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Padrón
+                li.breadcrumb-item.active Crear
+            
+            .card.card-register.mx-auto.mt-5
+                .card-header Crear registro en el padron
+                .card-body
+                    form(method="post")
+
+                        if messages.type === 1
+
+                            .alert.alert-danger.alert-dismissible.fade.show(role="alert") 
+                                | #{messages.message} 
+                                button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                    span(aria-hidden="true") ×
+
+                            if user.permit > 0
+
+                                .form-group
+                                    label(for="forSelectStation") Delegación
+                                    select#forSelectStation.form-control(name="delegation_name")
+                                        each delegation in delegations
+                                            if messages.delegation_name !== delegation.name
+                                                option #{delegation.name}
+                                            else
+                                                option(selected) #{delegation.name}
+
+                            .form-group
+                                .form-label-group
+                                    input#forName.form-control(type="text" name="name" value=messages.name required="required" autofocus="autofocus")
+                                    label(for="forName") Nombre
+
+                            .form-group
+                                .form-label-group
+                                    input#forEmployeeNumber.form-control(type="text" value=messages.employee_number required="required" autofocus="autofocus")
+                                    label(for="forEmployeeNumber") Número de empleado
+                        
+                            .form-group
+                                label( for="status") Status
+                                select(class="form-control" name="status" id="station")
+                                    if teacher.status
+                                        option(selected) Activo
+                                        option Inactivo
+                                    else
+                                        option(selected) Inactivo
+                                        option Activo
+
+                        else
+
+                            if messages.type === 2
+                                .alert.alert-success.alert-dismissible.fade.show(role="alert") 
+                                    | #{messages.message} 
+                                    button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                        span(aria-hidden="true") ×
+                            
+                            if user.permit > 0
+                                .form-group
+                                    label(for="forSelectStation") Delegación
+                                    select#forSelectStation.form-control(name="delegation_name")
+                                        each delegation in delegations
+                                            option #{delegation.name}
+
+                            .form-group
+                                .form-label-group
+                                    input#forName.form-control(type="text" name="name" placeholder="ejemplo: admin" required="required" autofocus="autofocus")
+                                    label(for="forName") Nombre
+
+                            .form-group
+                                .form-label-group
+                                    input#forEmployeeNumber.form-control(type="text" name="employee_number" placeholder="Numéro de empleado" required="required" autofocus="autofocus")
+                                    label(for="forEmployeeNumber") Número de empleado
+                        
+                            .form-group
+                                label( for="status") Status
+                                select(class="form-control" name="status" id="station")
+                                    option Activo
+                                    option Inactivo
+                                
+                        button.btn.btn-primary.btn-block(type="submit") Crear
+
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src='/public/vendor/jquery/jquery.min.js')
+    script(src='/public/vendor/bootstrap/js/bootstrap.bundle.min.js')
+    // Core plugin JavaScript
+    script(src='/public/vendor/jquery-easing/jquery.easing.min.js')
+    // Custom scripts for all pages
+    script(src='/public/js/sb-admin.min.js')

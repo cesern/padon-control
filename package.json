@@ -1,0 +1,38 @@
+{
+  "name": "padron_control",
+  "version": "1.0.0",
+  "description": "Sistema de control del padron del staus",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raulperod/padron-control.git"
+  },
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "mongodb",
+    "ejs",
+    "express"
+  ],
+  "author": "raulperod",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
+    "csvtojson": "^2.0.8",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.8",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,97 @@
+extends ../layouts/admin_in.pug
+
+block title
+    title Crear usuario
+
+block headstyles
+    // Bootstrap core CSS
+    link(href='/public/vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href='/public/css/buttons.css', rel='stylesheet')
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Usuarios
+                li.breadcrumb-item.active Crear
+            
+            .card.card-register.mx-auto.mt-5
+                .card-header Crear usuario
+                .card-body
+                    form(method="post")
+                        // for alert
+                        if messages.type === 1
+                            .alert.alert-danger.alert-dismissible.fade.show(role="alert") 
+                                | #{messages.message} 
+                                button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                    span(aria-hidden="true") ×
+
+                            .form-group
+                                label(for="forSelectStation") Delegación
+                                select#forSelectStation.form-control(name="delegation_name")
+                                    each delegation in delegations
+                                        if messages.delegation_name !== delegation.name
+                                            option #{delegation.name}
+                                        else
+                                            option(selected) #{delegation.name}
+                            .form-group
+                                .form-label-group
+                                    input#forUsername.form-control(type="text" name="username" value=messages.username required="required" autofocus="autofocus")
+                                    label(for="forUsername") Nombre de usuario
+                        else
+
+                            if messages.type === 2
+                                .alert.alert-success.alert-dismissible.fade.show(role="alert") 
+                                    | #{messages.message} 
+                                    button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                        span(aria-hidden="true") ×
+
+                            .form-group
+                                label(for="forSelectStation") Delegación
+                                select#forSelectStation.form-control(name="delegation_name")
+                                    each delegation in delegations
+                                        option #{delegation.name}
+                                        
+                            .form-group
+                                .form-label-group
+                                    input#forUsername.form-control(type="text" name="username" placeholder="ejemplo: admin" required="required" autofocus="autofocus")
+                                    label(for="forUsername") Nombre de usuario
+                        
+                        if user.permit === 2
+                                .form-group
+                                    label(for="forPermit") Tipo de usuario
+                                    select#forPermit.form-control(name="permit")
+                                        option(value="0") Administrador por delegación
+                                        option(value="1") Administrador General
+                                        option(value="2") Super Administrador
+                                    
+                        else
+                            input(type="hidden" name="permit" value="0")
+                        
+                        .form-group
+                            .form-row
+                                .col-md-6
+                                    .form-label-group
+                                        input#forPassword.form-control(type="password" name="password" placeholder="12345" required="required")
+                                        label(for="forPassword") Contraseña
+                                .col-md-6
+                                    .form-label-group
+                                        input#forConfirmPassword.form-control(type="password" name="confirm_password" placeholder="12345" required="required")
+                                        label(for="forConfirmPassword") Confirmar contraseña
+
+                        button.btn.btn-primary.btn-block(type="submit") Crear
+
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src='/public/vendor/jquery/jquery.min.js')
+    script(src='/public/vendor/bootstrap/js/bootstrap.bundle.min.js')
+    // Core plugin JavaScript
+    script(src='/public/vendor/jquery-easing/jquery.easing.min.js')
+    // Custom scripts for all pages
+    script(src='/public/js/sb-admin.min.js')

@@ -1,0 +1,74 @@
+extends ../layouts/admin_in.pug
+
+block title
+    title Lista de delegaciones
+
+block headstyles
+    // Bootstrap core CSS
+    link(href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Page level plugin CSS
+    link(href="/public/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href="/public/css/buttons.css" rel="stylesheet")
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Delegaciones
+                li.breadcrumb-item.active Lista
+            // DataTables Example
+            .card.mb-3
+                .card-header
+                    i.fas.fa-table
+                    | Lista de delegaciones
+                .card-body
+                    .table-responsive
+                        table#dataTable.table.table-bordered(width="100%" cellspacing="0")
+                            thead
+                                tr
+                                    th División
+                                    th Nombre
+                                    th Acción
+                            tbody
+                                if user.permit === 1
+                                    each delegation in delegations
+                                        tr
+                                            if delegation.division
+                                                td #{delegation.division.name}
+                                            else
+                                                td No tiene
+                                            td #{delegation.name}
+                                            td
+                                                a(href="/d/edit/"+delegation.name class="btn btn-primary") Editar
+                                            
+                                else
+                                    each delegation in delegations
+                                        tr
+                                            if delegation.division
+                                                td #{delegation.division.name}
+                                            else
+                                                td No tiene
+                                            td #{delegation.name}
+                                            td
+                                                a( href="/d/edit/"+delegation.name class="btn btn-primary") Editar
+                                                a( href="/d/delete/"+delegation.name class="btn btn-danger") Borrar
+                                            
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src="/public/vendor/jquery/jquery.min.js")
+    script(src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    // Core plugin JavaScript
+    script(src="/public/vendor/jquery-easing/jquery.easing.min.js")
+    // Page level plugin JavaScript
+    script(src="/public/vendor/datatables/jquery.dataTables.js")
+    script(src="/public/vendor/datatables/dataTables.bootstrap4.js")
+    // Custom scripts for all pages
+    script(src="/public/js/sb-admin.min.js")
+    // Demo scripts for this page
+    script(src="/public/js/demo/datatables-demo.js")

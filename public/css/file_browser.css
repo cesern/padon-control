@@ -1,0 +1,12 @@
+#customFile .custom-file-control:lang(es)::after {
+    content: "Seleccionar archivo...";
+}
+  
+#customFile .custom-file-control:lang(es)::before {
+    content: "Navegar";
+}
+
+#customFile .custom-file-control.selected:lang(es)::after {
+    content: "" !important;
+}
+

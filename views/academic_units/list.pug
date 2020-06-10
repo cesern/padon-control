@@ -1,0 +1,65 @@
+extends ../layouts/admin_in.pug
+
+block title
+    title Lista de unidades académicas
+
+block headstyles
+    // Bootstrap core CSS
+    link(href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Page level plugin CSS
+    link(href="/public/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href="/public/css/buttons.css" rel="stylesheet")
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Unidades académicas
+                li.breadcrumb-item.active Lista
+            // DataTables Example
+            .card.mb-3
+                .card-header
+                    i.fas.fa-table
+                    | Lista de unidades académicas
+                .card-body
+                    .table-responsive
+                        table#dataTable.table.table-bordered(width="100%" cellspacing="0")
+                            thead
+                                tr
+                                    th Nombre
+                                    th Acción
+                            tbody
+                                if user.permit === 1
+                                    each academic_unit in academic_units
+                                        tr
+                                            td #{academic_unit.name}
+                                            td
+                                                a(href="/au/edit/"+academic_unit.name class="btn btn-primary") Editar
+                                            
+                                else
+                                    each academic_unit in academic_units
+                                        tr
+                                            td #{academic_unit.name}
+                                            td
+                                                a( href="/au/edit/"+academic_unit.name class="btn btn-primary") Editar
+                                                a( href="/au/delete/"+academic_unit.name class="btn btn-danger") Borrar
+                                            
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src="/public/vendor/jquery/jquery.min.js")
+    script(src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    // Core plugin JavaScript
+    script(src="/public/vendor/jquery-easing/jquery.easing.min.js")
+    // Page level plugin JavaScript
+    script(src="/public/vendor/datatables/jquery.dataTables.js")
+    script(src="/public/vendor/datatables/dataTables.bootstrap4.js")
+    // Custom scripts for all pages
+    script(src="/public/js/sb-admin.min.js")
+    // Demo scripts for this page
+    script(src="/public/js/demo/datatables-demo.js")

@@ -1,0 +1,76 @@
+extends ../layouts/admin_in.pug
+
+block title
+    title Crear delegación
+
+block headstyles
+    // Bootstrap core CSS
+    link(href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href="/public/css/buttons.css" rel="stylesheet")
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Delegación
+                li.breadcrumb-item.active Crear
+            
+            .card.card-register.mx-auto.mt-5
+                .card-header Crear delegación
+                .card-body
+                    form(method="post")
+
+                        if messages.type === 1
+                            .alert.alert-danger.alert-dismissible.fade.show(role="alert") 
+                                | #{messages.message} 
+                                button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                    span(aria-hidden="true") ×
+
+                            .form-group
+                                label(for="forSelectDivision") División
+                                select#forSelectDivision.form-control(name="division_name")
+                                    each division in divisions
+                                        if division.name !== messages.division_name
+                                            option #{division.name}
+                                        else
+                                            option(selected) #{division.name}
+                            .form-group
+                                .form-label-group
+                                    input#forName.form-control(type="text" name="name" value=messages.name autofocus="autofocus")
+                                    label(for="forName") Nombre de la delegación
+                        
+                        else 
+
+                            if messages.type === 2
+                                .alert.alert-success.alert-dismissible.fade.show(role="alert") 
+                                    | #{messages.message} 
+                                    button.close(type="button" data-dismiss="alert" aria-label="Close")
+                                        span(aria-hidden="true") ×
+                        
+                            .form-group
+                                label(for="forSelectDivision") Division
+                                select#forSelectDivision.form-control(name="division_name")
+                                    each division in divisions
+                                        option #{division.name}
+                                       
+                            .form-group
+                                .form-label-group
+                                    input#forName.form-control(type="text" name="name" placeholder="Nombre de la delegación" autofocus="autofocus")
+                                    label(for="forName") Nombre de la delegación
+                                
+                        button.btn.btn-primary.btn-block(type="submit") Guardar
+
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src="/public/vendor/jquery/jquery.min.js")
+    script(src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    // Core plugin JavaScript
+    script(src="/public/vendor/jquery-easing/jquery.easing.min.js")
+    // Custom scripts for all pages
+    script(src="/public/js/sb-admin.min.js")

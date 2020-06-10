@@ -1,0 +1,68 @@
+extends ../layouts/admin_in.pug
+
+block title
+    title Editar usuario
+
+block headstyles
+    // Bootstrap core CSS
+    link(href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    // Custom fonts for this template
+    link(href="/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css")
+    // Custom styles for this template
+    link(href="/public/css/sb-admin.css" rel="stylesheet")
+    link(href="/public/css/buttons.css" rel="stylesheet")
+
+block content
+
+    #content-wrapper
+        .container-fluid
+            // Breadcrumbs
+            ol.breadcrumb
+                li.breadcrumb-item Usuarios
+                li.breadcrumb-item.active Editar
+            
+            .card.card-register.mx-auto.mt-5
+                .card-header Editar usuario
+                .card-body
+                    form(method="post")
+                        .form-group
+                            label(for="forSelectStation") Delegación
+                            select#forSelectStation.form-control(name="delegation_name")
+                                each delegation in delegations
+                                    if delegation.name !== user_edit.delegation.name
+                                        option #{delegation.name}
+                                    else
+                                        option(selected) #{delegation.name}
+                        
+                        .form-group
+                            .form-label-group
+                                input#forUsername.form-control(type="text" value=user_edit.username disabled autofocus="autofocus")
+                                label(for="forUsername") Nombre de usuario
+                        
+                        .form-group
+                            label(for="forPermit") Tipo de usuario
+                            select#forPermit.form-control(name="permit")
+                                if user_edit.permit === 0
+                                    <option selected value="0">Administrador por delegación</option>
+                                    <option value="1">Administrador General</option>
+                                    <option value="2">Super Administrador</option>
+                                else
+                                    <option value="0">Administrador por delegación</option>
+                                    <option selected value="1">Administrador General</option>
+                                    <option value="2">Super Administrador</option>
+                        
+                        .form-group
+                            .form-label-group
+                                input#forPassword.form-control(type="password" name="password" placeholder="12345")
+                                label(for="forPassword") Contraseña
+                                
+                        button.btn.btn-primary.btn-block(type="submit") Guardar
+
+block bodystyles
+    // Bootstrap core JavaScript
+    script(src="/public/vendor/jquery/jquery.min.js")
+    script(src="/public/vendor/bootstrap/js/bootstrap.bundle.min.js")
+    // Core plugin JavaScript
+    script(src="/public/vendor/jquery-easing/jquery.easing.min.js")
+    // Custom scripts for all pages
+    script(src="/public/js/sb-admin.min.js")

@@ -1,0 +1,66 @@
+doctype html
+html(lang="es-MX")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(name="description" content="")
+        meta(name="author" content="")
+        link(rel="icon" type="image/png" href="/public/images/staus.ico.png")
+
+        block title
+
+        block headstyles
+
+    body#page-top.sidebar-toggled
+        nav.navbar.navbar-expand.navbar-dark.bg-dark.static-top
+            a.navbar-brand.mr-1(href="#") STAUS
+            button#sidebarToggle.btn.btn-link.btn-sm.text-white.order-1.order-sm-0(href="#")
+                i.fas.fa-bars
+            // Navbar
+            ul.navbar-nav.d-none.d-md-inline-block.form-inline.ml-auto.mr-0.mr-md-3.my-2.my-md-0
+                li.nav-item.dropdown.no-arrow.mx-1
+                    a#userDropdown.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        i.fas.fa-user-circle.fa-fw
+                    .dropdown-menu.dropdown-menu-right(aria-labelledby="userDropdown")
+                        a.dropdown-item(href="/u/my-profile") Cambiar contraseña
+                        .dropdown-divider
+                        a.dropdown-item(href="#" data-toggle="modal" data-target="#logoutModal") Cerrar sesión
+        #wrapper
+            // Sidebar
+            ul.sidebar.navbar-nav.toggled
+                li.nav-item.dropdown
+                    a#pagesPadron.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        i.fas.fa-fw.fa-book
+                        span  Padrón
+                    .dropdown-menu(aria-labelledby="pagesPadron")
+                        a.dropdown-item(href="/p/new") Crear
+                        a.dropdown-item(href="/p/list") Ver
+            
+            block content
+
+                // Sticky Footer
+                footer.sticky-footer
+                    .container.my-auto
+                        .copyright.text-center.my-auto
+                            span STAUS © 2018
+                            
+            // /.content-wrapper
+        // /#wrapper
+        // Scroll to Top Button
+        a.scroll-to-top.rounded(href="#page-top")
+            i.fas.fa-angle-up
+        // Logout Modal
+        #logoutModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+            .modal-dialog(role="document")
+                .modal-content
+                    .modal-header
+                        h5#exampleModalLabel.modal-title ¿Estás seguro?
+                        button.close(type="button" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") ×
+                    .modal-body Selecciona "Cerrar Sesión" si estás seguro
+                    .modal-footer
+                        button.btn.btn-secondary(type="button" data-dismiss="modal") Cancelar
+                        a.btn.btn-primary(href="/u/logout") Cerrar Sesión
+        
+        block bodystyles
